@@ -19,7 +19,7 @@ if __name__ == '__main__':
     result = unittest.TextTestRunner().run(tests)
 
     for skipped in result.skipped:
-        print skipped
+        print(skipped)
 
     if not result.wasSuccessful():
         sys.exit(1)

@@ -1,8 +1,8 @@
 # coding: utf-8
 
 from lxml import sax, etree
-import utils
-from tag import Tag
+from ooxml_to_latex import utils
+from ooxml_to_latex.tag import Tag
 
 
 class OOXMLtoLatexParser(sax.ContentHandler):
@@ -63,10 +63,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         result = ''
         for char in text:
             for key, value in self.math_symbols.items():
-                if isinstance(key, str):
-                    found = char == key.decode("utf-8")
-                else:
-                    found = char == key
+                found = char == key
                 if found:
                     char = value + ' '
             result += char
@@ -112,13 +109,12 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         xml_string = OOXMLtoLatexParser._remove_self_closing_tags(xml_string)
         xml_to_latex_parser = cls(**parser_kwargs)
 
-        if isinstance(xml_string, basestring):
+        if isinstance(xml_string, str):
             element = etree.fromstring(xml_string)
             sax.saxify(element, xml_to_latex_parser)
             return xml_to_latex_parser
         else:
             raise TypeError("xml string parameter must be str or unicode")
-
 
     @staticmethod
     def change_xml_double_open_tag_to_left_arrow(xml_string):
@@ -328,7 +324,7 @@ class OOXMLtoLatexParser(sax.ContentHandler):
             function(attrs=attrs)
 
 
-        self.parsed_tags += unicode(tag)
+        self.parsed_tags += str(tag)
         self.previous_tag = tag.name
 
     def endElementNS(self, name, tag):
@@ -339,13 +335,13 @@ class OOXMLtoLatexParser(sax.ContentHandler):
         function = self.tag_end_evaluator.get(tag.name, None)
         if callable(function):
             function(tag=tag)
-        self.parsed_tags += unicode(tag)
+        self.parsed_tags += str(tag)
 
     def characters(self, data):
 
         if data == 'lim':
             self.is_underset = True
-            self.result = utils.replace_last_substring(self.result, "\underbrace{", "\underset")
+            self.result = utils.replace_last_substring(self.result, "\\underbrace{", "\\underset")
         else:
             if data.strip() == r"left":
                 self.text = r"<"

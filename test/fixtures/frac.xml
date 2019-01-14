@@ -1,5 +1,5 @@
-<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"
-        xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" 
+	xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
     <m:f>
         <m:num>
             <m:r>

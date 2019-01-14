@@ -2,19 +2,18 @@
 
 import unittest
 import os
-from src.ooxml_to_latex import OOXMLtoLatexParser
-from src.ooxml_to_latex import unicode_to_latex
+from ooxml_to_latex import OOXMLtoLatexParser
+from ooxml_to_latex import unicode_to_latex
 from utils import read_xml
 
-join_path = os.sep.join
-
-fixtures_path = join_path(['fixtures'])
-bug_fixes_path = join_path(['bug_fixes'])
+fixtures_path = 'fixtures'
+bug_fixes_path = 'bug_fixes'
 
 
 class OoXMLtoLatexTests(unittest.TestCase):
 
     def setUp(self):
+        """每个test测试点前都会运行"""
         self.maxDiff = None
 
     def test_square3(self):
